@@ -1,0 +1,17 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: redis
+  namespace: discourse
+  labels:
+    app: discourse
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - from:
+      kind: DockerImage
+      name: docker.io/centos/redis-32-centos7:latest
+    name: stable
+    referencePolicy:
+      type: Local

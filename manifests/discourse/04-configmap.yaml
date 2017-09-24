@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: discourse-config
+  namespace: discourse
+data:
+  POSTGRESQL_HOST: postgresql
+  POSTGRESQL_ROOT_USER: postgres
+  POSTGRESQL_ROOT_PASSWORD: postgres
+  DISCOURSE_POSTGRESQL_NAME: discourse
+  DISCOURSE_POSTGRESQL_USERNAME: discourse
+  DISCOURSE_POSTGRESQL_PASSWORD: discourse
+  DISCOURSE_HOSTNAME: www.example.com
+  REDIS_HOST: redis
+  REDIS_PORT_NUMBER: "6379"

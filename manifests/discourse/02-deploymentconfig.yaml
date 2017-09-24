@@ -1,0 +1,76 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    image.openshift.io/triggers: |
+      [
+        {"from":{"kind":"ImageStreamTag","name":"discourse:stable"},"fieldPath":"spec.template.spec.containers[?(@.name==\"discourse\")].image"},
+        {"from":{"kind":"ImageStreamTag","name":"discourse:stable"},"fieldPath":"spec.template.spec.containers[?(@.name==\"sidekiq\")].image"}
+      ]
+  labels:
+    app: discourse
+  name: discourse
+  namespace: discourse
+spec:
+  replicas: 1
+  selector:
+    deploymentconfig: discourse
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: discourse
+        deploymentconfig: discourse
+    spec:
+      containers:
+        - args:
+          - nami
+          - start
+          - --foreground
+          - discourse-sidekiq
+          image: ' '
+          imagePullPolicy: Always
+          name: sidekiq
+          envFrom:
+          - configMapRef:
+              name: discourse-config
+        - image: ' '
+          imagePullPolicy: Always
+          name: discourse
+          envFrom:
+          - configMapRef:
+              name: discourse-config
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccountName: discourse-sa
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - discourse
+          - sidekiq
+        from:
+          kind: ImageStreamTag
+          name: 'discourse:stable'
+      type: ImageChange
+    - type: ConfigChange

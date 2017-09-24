@@ -1,0 +1,15 @@
+resources:
+- 01-namespace.yaml
+- redis/01-imagestream.yaml
+- redis/02-deploymentconfig.yaml
+- redis/03-service.yaml
+- postgresql/01-imagestream.yaml
+- postgresql/02-deploymentconfig.yaml
+- postgresql/03-service.yaml
+- discourse/01-imagestream.yaml
+- discourse/02-deploymentconfig.yaml
+- discourse/03-service.yaml
+- discourse/04-configmap.yaml
+- discourse/05-serviceaccount.yaml
+- discourse/06-scc.yaml
+- discourse/07-route.yaml

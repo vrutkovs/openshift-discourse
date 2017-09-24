@@ -1,0 +1,17 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: discourse
+  namespace: discourse
+  labels:
+    app: discourse
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - from:
+      kind: DockerImage
+      name: docker.io/bitnami/discourse:2.3.1
+    name: stable
+    referencePolicy:
+      type: Local
