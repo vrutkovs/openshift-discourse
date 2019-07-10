@@ -6,6 +6,7 @@ metadata:
   labels:
     app: discourse
 spec:
+  host: discourse-discourse.apps.vrutkovs-2.devcluster.openshift.com
   to:
     kind: Service
     name: web

@@ -13,3 +13,11 @@ resources:
 - discourse/05-serviceaccount.yaml
 - discourse/06-scc.yaml
 - discourse/07-route.yaml
+vars:
+- name: SITE_HOSTNAME
+  objref:
+    kind: Route
+    name: discourse
+    apiVersion: route.openshift.io/v1
+  fieldref:
+    fieldpath: spec.host
