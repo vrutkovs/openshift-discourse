@@ -11,5 +11,6 @@ data:
   DISCOURSE_POSTGRESQL_USERNAME: discourse
   DISCOURSE_POSTGRESQL_PASSWORD: discourse
   DISCOURSE_HOSTNAME: discourse-discourse.apps.vrutkovs-2.devcluster.openshift.com
+  DISCOURSE_HOST: web
   REDIS_HOST: redis
   REDIS_PORT_NUMBER: "6379"
